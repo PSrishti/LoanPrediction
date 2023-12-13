@@ -74,6 +74,12 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size= 0.25, rando
 
 #1 : Logistic Regression classifier
 lrclf = LogisticRegression(random_state=0)
+#Hyperparameter Tuning
+clf_GS = GridSearchCV(lrclf, cv=5, param_grid={'C' : [1,1.5,1.75,2] , 'max_iter' : [800,1000,1200], 'class_weight' : [None,'balanced',0.25], 'tol' : [0.00001,0.0001,0.01], 'penalty' : ["l1","l2"]})
+clf_GS.fit(x_train, y_train)
+print("tuned hpyerparameters :(best parameters) ",clf_GS.best_params_)
+print("accuracy :",clf_GS.best_score_)
+
 #Implementing cross validation
 cv = ShuffleSplit(n_splits=5, test_size=0.3, n_splits = 5, random_state=0)
 shufflescore = cross_val_score(lrclf, x_train, y_train, cv=cv)
@@ -84,12 +90,6 @@ rmse_score = np.sqrt(-score)
 lrclf.fit(x_train[:3], y_train[:3])
 lrclf.predict(x_test)
 lrclf.score(x_test,y_test)    
-#Hyperparameter Tuning
-clf_GS = GridSearchCV(lrclf, cv=5, param_grid={'C' : [1.5,1.75,2] , 'max_iter' : [800,1000,1200], 'class_weight' : [None,'balanced',0.25], 'tol' : [0.00001,0.0001,0.01], 'penalty' : ["l1","l2"]})
-clf_GS.fit(x_train, y_train)
-print("tuned hpyerparameters :(best parameters) ",clf_GS.best_params_)
-print("accuracy :",clf_GS.best_score_)
-
 
 
 #2 : Random Forest classifier
