@@ -1,0 +1,72 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red202\green202\blue202;\red23\green23\blue23;\red212\green212\blue212;
+\red0\green0\blue0;\red202\green51\blue35;\red219\green39\blue218;}
+{\*\expandedcolortbl;;\cssrgb\c83137\c83137\c83137;\cssrgb\c11765\c11765\c11765;\cssrgb\c86275\c86275\c86275;
+\csgray\c0;\cssrgb\c83899\c28663\c18026;\cssrgb\c89513\c29736\c88485;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Installing Finrl package\
+Note : This works only for python version >= 3.10 and < 3.11. Since I am using python 3.11.5, I created a virtual environment to make it work in my IDE without actually changing its current version, which is compatible for my most of the other projects.\
+1.  git clone 
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+https://github\cf4 .\cf2 com/AI4Finance-LLC/FinRL-Library\cf4 .\cf2 git
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+2.  cd FinRL-Library\
+3.  
+\f2\fs22 \cf5 \CocoaLigature0 conda create --name myenv python=3.10.11\
+4. conda activate myenv\
+5. pip install -\'97upgrade pip\
+   pip install --upgrade setuptools\
+6. xcode-select --install\
+7. brew update\
+   brew upgrade\
+8. cd finrl\
+9. pip install -r requirements.txt\
+10. pip install .\
+11. If this error - \'93  \cf6    \cf5    ERROR: Failed building wheel for qdldl\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+  \cf6    \cf5  Failed to build qdldl\
+  \cf6    \cf5  ERROR: Could not build wheels for qdldl, which is required to install pyproject.toml-based projects\
+  \cf6    \cf5  \cf6 [end of output]\cf5 \
+  \
+  
+\f3\b \cf7 note
+\f2\b0 \cf5 : This error originates from a subprocess, and is likely not a problem with pip.\
+
+\f3\b \cf6 error
+\f2\b0 \cf5 : 
+\f3\b subprocess-exited-with-error
+\f2\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\'94\
+Then do - 1. git clone https://github.com/oxfordcontrol/qdldl.git   \
+             cd ldldl  \
+          2. conda install -c conda-forge cmake\
+          3. mkdir build\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+             cd build\
+             cmake ..\
+             cmake --build \
+          4. sudo make install\
+12. Go back to finrl folder using cd .. ; cd ..\
+13. pip install osqp==0.6.2\
+14. pip install .\
+15. After completion, \
+    python\
+Python 3.10.11 (main, May 17 2023, 14:30:36) [Clang 14.0.6 ] on darwin\
+Type "help", "copyright", "credits" or "license" for more information.\
+>>> import finrl\
+If completes successfully, finrl is successfully installed.\
+16. To use this, we need to work on spider in virtual environment. To do that - \
+    1. conda install spyder-kernels\
+    2. python -c "import sys; print(sys.executable)"\
+    3. Copy the output of the above command. Launch Spyder. Go to preferences >> Python Interpreter >> Use this python interpreter. Paste the output of above command and click Apply. Open a new console and everything in the virtual environment can be used there. \
+17. If any new package is needed to be installed for this project, it would be needed to be installed in this virtual environment only. Do \'93conda activate myenv\'94 in the terminal to activate this virtual environment, \'93conda deactivate\'94 to go back to base environment. \
+\
+\
+\'97- pip install tensor flow\
+\'97- pip install keras\
+\'97- pip install nltk}
