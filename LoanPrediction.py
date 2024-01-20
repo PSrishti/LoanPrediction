@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler, MinMaxScaler
@@ -86,9 +79,12 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size= 0.25, rando
 #New_df.describe()
 #New_df.corr()    
          
-#Building classification models
 
-#1 : Logistic Regression classifier
+'''.................Building classification models....................'''
+
+
+'''1 : Logistic Regression classifier'''
+
 lrclf = LogisticRegression(random_state=0)
 #Hyperparameter Tuning
 clf_GS = GridSearchCV(lrclf, cv=5, param_grid={'solver' : ['liblinear'] , 'C' : [0.001,0.003,0.005,0.01,0.03,0.05,0.1,0.3,0.5,1] , 'max_iter' : [100,500,800], 'class_weight' : ['balanced',None], 'tol' : [0.00001,0.000001], 'penalty' : ["l1","l2"]})
@@ -122,7 +118,7 @@ for train_index,test_index in stratified_kfold.split(x_train, y_train):
 lrclf.predict(x_test)
 lrclf.score(x_test,y_test)    #0.77
 
-#2 : SGD classifier
+'''2 : SGD classifier'''
 
 #Hyperparameter Tuning
 hyperparams = dict(loss = ['hinge', 'log_loss', 'modified_huber', 'squared_hinge', 'perceptron'],
@@ -175,7 +171,7 @@ print(f"\nAverage Accuracy: {average_accuracy:.2f}")
 #Average accuracy : 0.80
 
 
-#3 : SVM - Linear/RBF
+'''3 : SVM - Linear/RBF'''
 
 lsvclf = svm.LinearSVC(dual="auto", random_state=0, tol=1e-5)
 lsvclf.fit(x_train, y_train)
@@ -213,7 +209,8 @@ print(f"Accuracy: {accuracy:.2f}") #0.83
 print("Best Hyperparameters:", best_params)
 #{'C': 0.1, 'gamma': 'scale', 'kernel': 'linear'}
     
-#4 : KNN
+'''4 : KNN'''
+
 knnclf = KNeighborsClassifier(n_neighbors=50)
 knnclf.fit(x_train, y_train)
 knnclf.predict(x_test)
@@ -247,7 +244,9 @@ y_pred = best_knn_model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}") #0.81
 
-#5 : Decision Tree Classifier
+
+'''5 : Decision Tree Classifier'''
+
 dtclf = DecisionTreeClassifier(random_state=0)
 dtclf.fit(x_train, y_train)
 dtclf.predict(x_test)
@@ -283,7 +282,9 @@ y_pred = best_dt_model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}") #0.81
 
-#6 : Random Forest classifier
+
+'''6 : Random Forest classifier'''
+
 rfclf = RandomForestClassifier(max_depth=2, random_state=0)
 rfclf.fit(x_train, y_train)    
 rfclf.predict(x_test)
@@ -320,7 +321,9 @@ y_pred = best_rf_model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}")  #0.81
 
-#7 : Ada-Boost
+
+'''7 : Ada-Boost'''
+
 adbclf = AdaBoostClassifier(n_estimators=100, random_state=0)
 adbclf.fit(x_train, y_train)
 adbclf.predict(x_test)
@@ -394,7 +397,8 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}") #0.81
 
 
-#8 : XgBoost
+'''8 : XgBoost'''
+
 xgclf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
 xgclf.fit(x_train, y_train)
 xgclf.predict(x_test)
@@ -437,7 +441,8 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}") #0.83
 
 
-#9 : Naive Bayes
+'''9 : Naive Bayes'''
+
 nbclf = GaussianNB()
 nbclf.fit(x_train, y_train)
 nbclf.predict(x_test)
@@ -471,7 +476,9 @@ y_pred = best_nb_model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}") #0.83
 
-#10 : Gaussian Process classifier  
+
+'''10 : Gaussian Process classifier'''
+  
 kernel = 1.0 * RBF(1.0)
 gpclf = GaussianProcessClassifier(kernel=kernel, random_state=0) 
 gpclf.fit(x_train, y_train)
@@ -507,7 +514,8 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.2f}") #0.83
 
 
-#11 : Voting classifier
+'''11 : Voting classifier'''
+
 vclf = VotingClassifier(estimators=[('lr', lrclf), ('rf', rfclf), ('adb', adbclf), ('xgb', xgclf)], voting='hard')
 vclf.fit(x_train, y_train)
 vclf.predict(x_test)
